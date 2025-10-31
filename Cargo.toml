@@ -1,0 +1,23 @@
+[package]
+name = "pid_tuner"
+version = "0.1.0"
+edition = "2021"
+authors = ["PID Tuner"]
+description = "Ardupilot PID coefficient calculator from flight logs"
+
+[dependencies]
+clap = { version = "4.4", features = ["derive"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+csv = "1.3"
+anyhow = "1.0"
+thiserror = "1.0"
+nalgebra = "0.32"
+ndarray = "0.15"
+ndarray-stats = "0.5"
+log = "0.4"
+env_logger = "0.11"
+
+[[bin]]
+name = "pid_tuner"
+path = "src/main.rs"

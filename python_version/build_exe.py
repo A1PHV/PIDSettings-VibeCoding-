@@ -39,6 +39,18 @@ def build_exe():
         "--hidden-import", "pymavlink.dialects",
         "--hidden-import", "pymavlink.dialects.v20",
         "--hidden-import", "pymavlink.dialects.v20.ardupilotmega",
+        # Hidden imports for scipy
+        "--hidden-import", "scipy",
+        "--hidden-import", "scipy.signal",
+        "--hidden-import", "scipy.optimize",
+        "--hidden-import", "scipy.interpolate",
+        "--hidden-import", "scipy.integrate",
+        "--hidden-import", "scipy.fft",
+        "--hidden-import", "scipy.linalg",
+        # Hidden imports for advanced modules
+        "--hidden-import", "signal_processing",
+        "--hidden-import", "system_identification",
+        "--hidden-import", "advanced_pid_tuning",
         # Main script
         "pid_tuner.py"
     ]

@@ -21,9 +21,22 @@ def main():
         description='Ardupilot PID coefficient calculator from flight logs',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
+Advanced Tuning Methods:
+  auto            - Automatically select best method (RECOMMENDED)
+  imc             - Internal Model Control (robust, good for delays)
+  simc            - Skogestad IMC (disturbance rejection)
+  cohen-coon      - Cohen-Coon (large dead time systems)
+  lambda          - Lambda tuning (explicit speed control)
+  tyreus-luyben   - Tyreus-Luyben (conservative, stable)
+  optimization    - Numerical optimization (best performance)
+  frequency       - Frequency domain (stability margins)
+  ziegler-nichols - Classic Ziegler-Nichols
+  relay           - Relay feedback method
+
 Examples:
   %(prog)s analyze -i flight.bin
-  %(prog)s analyze -i flight.log -a roll -m relay
+  %(prog)s analyze -i flight.bin -m auto
+  %(prog)s analyze -i flight.log -a roll -m imc
   %(prog)s extract -i flight.bin -o data.csv
         """
     )
@@ -39,9 +52,11 @@ Examples:
     analyze_parser.add_argument('-a', '--axis', default='all',
                                 choices=['all', 'roll', 'pitch', 'yaw', 'alt'],
                                 help='Axis to tune (default: all)')
-    analyze_parser.add_argument('-m', '--method', default='ziegler-nichols',
-                                choices=['ziegler-nichols', 'relay', 'manual'],
-                                help='Optimization method (default: ziegler-nichols)')
+    analyze_parser.add_argument('-m', '--method', default='auto',
+                                choices=['auto', 'imc', 'simc', 'cohen-coon', 'lambda',
+                                        'tyreus-luyben', 'optimization', 'frequency',
+                                        'ziegler-nichols', 'relay'],
+                                help='Tuning method (default: auto - automatically selects best)')
 
     # Extract command
     extract_parser = subparsers.add_parser('extract', help='Extract flight data to CSV')
